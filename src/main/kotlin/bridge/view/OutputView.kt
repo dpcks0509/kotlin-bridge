@@ -6,7 +6,11 @@ class OutputView {
         println()
     }
 
-    fun printMap() {}
+    fun printMap(bridgeAbove: String, bridgeBelow: String) {
+        println(bridgeAbove)
+        println(bridgeBelow)
+        println()
+    }
 
     fun printResult() {}
 }

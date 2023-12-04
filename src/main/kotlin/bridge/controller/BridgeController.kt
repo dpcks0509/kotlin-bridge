@@ -4,18 +4,30 @@ import bridge.model.BridgeGame
 import bridge.view.InputView
 import bridge.view.OutputView
 
-class BridgeController() {
+class BridgeController {
     private val inputView = InputView()
     private val outputView = OutputView()
 
+    private var bridgeSize = 0
     private val bridgeGame = BridgeGame()
 
     fun run() {
+        setUpGame()
+        startGame()
+    }
+
+    private fun setUpGame() {
         outputView.printGameStart()
-        val bridgeSize = inputView.readBridgeSize()
+        bridgeSize = inputView.readBridgeSize()
         bridgeGame.setBridge(bridgeSize)
-        repeat(bridgeSize) {
+    }
+
+    private fun startGame() {
+        for (round in 0 until bridgeSize) {
             val moving = inputView.readMoving()
+            val correctMove = bridgeGame.move(round, moving)
+            outputView.printMap(bridgeGame.getBridgeAbove(), bridgeGame.getBridgeBelow())
+            if (!correctMove) return
         }
     }
 }
