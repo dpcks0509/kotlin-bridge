@@ -1,6 +1,7 @@
 package bridge.view
 
 import bridge.util.Validator.validateBridgeSize
+import bridge.util.Validator.validateMoving
 import camp.nextstep.edu.missionutils.Console
 
 class InputView {
@@ -11,7 +12,9 @@ class InputView {
     }
 
     fun readMoving(): String {
-        return ""
+        println("이동할 칸을 선택해주세요. (위: U, 아래: D)")
+        val moving = Console.readLine()
+        return validateMoving(moving)
     }
 
     fun readGameCommand(): String {
