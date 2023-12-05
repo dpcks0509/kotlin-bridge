@@ -7,7 +7,6 @@ import bridge.view.OutputView
 class BridgeController {
     private val inputView = InputView()
     private val outputView = OutputView()
-
     private val bridgeGame = BridgeGame()
 
     fun run() {
@@ -18,26 +17,25 @@ class BridgeController {
 
     private fun setUpGame() {
         outputView.printGameStart()
-        bridgeGame.setBridge(inputView.readBridgeSize())
+        bridgeGame.makeBridge(inputView.readBridgeSize())
     }
 
     private fun startGame() {
-        var gameStatus = true
-        while (gameStatus) {
-            gameStatus = onGame()
-            if (!gameStatus && bridgeGame.getSuccessGame()) gameStatus = retryGame()
+        var isGameOn = true
+        while (isGameOn) {
+            isGameOn = playGame()
+            if (isGameOn) break else isGameOn = retryGame()
         }
     }
 
-    private fun onGame(): Boolean {
+    private fun playGame(): Boolean {
         for (round in 0 until bridgeGame.getBridgeSize()) {
             val moving = inputView.readMoving()
             val correctMove = bridgeGame.move(round, moving)
             outputView.printMap(bridgeGame.getBridgeAbove(), bridgeGame.getBridgeBelow())
-            if (!correctMove) break
+            if (!correctMove) return false
         }
-        bridgeGame.setSuccessGame()
-        return false
+        return true
     }
 
     private fun retryGame(): Boolean {
@@ -49,6 +47,6 @@ class BridgeController {
     }
 
     private fun endGame() {
-
+        outputView.printResult(bridgeGame)
     }
 }
