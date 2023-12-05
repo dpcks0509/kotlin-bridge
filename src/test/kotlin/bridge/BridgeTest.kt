@@ -1,6 +1,7 @@
 package bridge
 
 import bridge.util.Validator.validateBridgeSize
+import bridge.util.Validator.validateGameCommand
 import bridge.util.Validator.validateMoving
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -28,7 +29,19 @@ class BridgeTest {
 
     @ParameterizedTest
     @ValueSource(strings = ["u", "d", "Up", "Down", "U ", " D", "1", "0", " ", ""])
-    fun `이동할 칸 입력 예외 처리 (U(위 칸)와 D(아래 칸) 중 하나의 문자가 아닌경우)`(moving: String) {
-        assertThrows<IllegalArgumentException>{ validateMoving(moving) }
+    fun `이동할 칸 입력 예외 처리 (U(위 칸)와 D(아래 칸) 중 하나의 문자가 아닌 경우)`(moving: String) {
+        assertThrows<IllegalArgumentException> { validateMoving(moving) }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["R", "Q"])
+    fun `올바른 게임 재시작,종료 여부 입력`(gameCommand: String) {
+        assertDoesNotThrow { validateGameCommand(gameCommand) }
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = ["r", "q", "Retry", "Quit", "R ", " Q", "1", "0", " ", ""])
+    fun `게임 재시작,종료 여부 입력 예외 처리 (R(재시작)과 Q(종료) 중 하나의 문자가 아닌 경우)`(gameCommand: String) {
+        assertThrows<IllegalArgumentException> { validateGameCommand(gameCommand) }
     }
 }
