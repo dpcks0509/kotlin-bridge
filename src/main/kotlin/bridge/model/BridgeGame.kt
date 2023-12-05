@@ -16,6 +16,9 @@ class BridgeGame {
     private val bridgeAbove: MutableList<String> = mutableListOf()
     private val bridgeBelow: MutableList<String> = mutableListOf()
 
+    private var successGame = false
+    private var numberOfAttempts = 1
+
     fun move(round: Int, moving: String): Boolean {
         when {
             moving == UP && bridge[round] == moving -> moveUpSuccess()
@@ -46,12 +49,23 @@ class BridgeGame {
         bridgeBelow.add(MOVE_FAIL)
     }
 
-    fun retry() {}
+    fun retry() {
+        numberOfAttempts += 1
+        bridgeAbove.clear()
+        bridgeBelow.clear()
+    }
 
     fun setBridge(bridgeSize: Int) {
         bridge = bridgeMaker.makeBridge(bridgeSize)
     }
 
+    fun setSuccessGame() {
+        successGame = true
+    }
+
+    fun getBridgeSize() = bridge.size
     fun getBridgeAbove() = bridgeAbove.joinToString(" | ", "[ ", " ]")
     fun getBridgeBelow() = bridgeBelow.joinToString(" | ", "[ ", " ]")
+    fun getSuccessGame() = successGame
+    fun getNumberOfAttempts() = numberOfAttempts
 }

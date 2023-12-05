@@ -8,26 +8,47 @@ class BridgeController {
     private val inputView = InputView()
     private val outputView = OutputView()
 
-    private var bridgeSize = 0
     private val bridgeGame = BridgeGame()
 
     fun run() {
         setUpGame()
         startGame()
+        endGame()
     }
 
     private fun setUpGame() {
         outputView.printGameStart()
-        bridgeSize = inputView.readBridgeSize()
-        bridgeGame.setBridge(bridgeSize)
+        bridgeGame.setBridge(inputView.readBridgeSize())
     }
 
     private fun startGame() {
-        for (round in 0 until bridgeSize) {
+        var gameStatus = true
+        while (gameStatus) {
+            gameStatus = onGame()
+            if (!gameStatus && bridgeGame.getSuccessGame()) gameStatus = retryGame()
+        }
+    }
+
+    private fun onGame(): Boolean {
+        for (round in 0 until bridgeGame.getBridgeSize()) {
             val moving = inputView.readMoving()
             val correctMove = bridgeGame.move(round, moving)
             outputView.printMap(bridgeGame.getBridgeAbove(), bridgeGame.getBridgeBelow())
-            if (!correctMove) return
+            if (!correctMove) break
         }
+        bridgeGame.setSuccessGame()
+        return false
+    }
+
+    private fun retryGame(): Boolean {
+        if (inputView.readGameCommand() == "R") {
+            bridgeGame.retry()
+            return true
+        }
+        return false
+    }
+
+    private fun endGame() {
+
     }
 }

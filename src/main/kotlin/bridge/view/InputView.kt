@@ -1,6 +1,7 @@
 package bridge.view
 
 import bridge.util.Validator.validateBridgeSize
+import bridge.util.Validator.validateGameCommand
 import bridge.util.Validator.validateMoving
 import camp.nextstep.edu.missionutils.Console
 
@@ -18,6 +19,8 @@ class InputView {
     }
 
     fun readGameCommand(): String {
-        return ""
+        println("게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)")
+        val gameCommand = Console.readLine()
+        return validateGameCommand(gameCommand)
     }
 }
