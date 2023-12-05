@@ -17,14 +17,15 @@ class BridgeController {
 
     private fun setUpGame() {
         outputView.printGameStart()
-        bridgeGame.makeBridge(inputView.readBridgeSize())
+        bridgeGame.setBridge(inputView.readBridgeSize())
     }
 
     private fun startGame() {
         var isGameOn = true
         while (isGameOn) {
             isGameOn = playGame()
-            if (isGameOn) break else isGameOn = retryGame()
+            if (isGameOn) break
+            isGameOn = retryGame()
         }
     }
 

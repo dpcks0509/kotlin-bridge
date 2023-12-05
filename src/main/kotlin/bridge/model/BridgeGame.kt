@@ -54,7 +54,7 @@ class BridgeGame {
         bridgeBelow.clear()
     }
 
-    fun makeBridge(bridgeSize: Int) {
+    fun setBridge(bridgeSize: Int) {
         bridge = bridgeMaker.makeBridge(bridgeSize)
     }
 
