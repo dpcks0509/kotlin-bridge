@@ -19,13 +19,19 @@ class BridgeGame {
     private var numberOfAttempts = 1
 
     fun move(round: Int, moving: String): Boolean {
-        when {
-            moving == UP && bridge[round] == moving -> moveUpSuccess()
-            moving == UP && bridge[round] != moving -> moveUpFail()
-            moving == DOWN && bridge[round] == moving -> moveDownSuccess()
-            moving == DOWN && bridge[round] != moving -> moveDownFail()
+        val isAnswer = bridge[round] == moving
+        when (moving) {
+            UP -> {
+                if (isAnswer) moveUpSuccess()
+                if (!isAnswer) moveUpFail()
+            }
+
+            DOWN -> {
+                if (isAnswer) moveDownSuccess()
+                if (!isAnswer) moveDownFail()
+            }
         }
-        return bridge[round] == moving
+        return isAnswer
     }
 
     private fun moveUpSuccess() {
