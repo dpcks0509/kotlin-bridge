@@ -9,5 +9,6 @@ class BridgeController {
 
     fun run() {
         outputView.printGameStart()
+        val bridgeSize = inputView.readBridgeSize()
     }
 }
