@@ -14,5 +14,6 @@ class BridgeController {
         outputView.printGameStart()
         val bridgeSize = inputView.readBridgeSize()
         bridgeGame.makeBridge(bridgeSize)
+        inputView.readMoving()
     }
 }
