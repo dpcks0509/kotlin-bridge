@@ -1,7 +1,7 @@
 package bridge.model
 
 import bridge.utils.Constants.DOWN
-import bridge.utils.Constants.RANDOM_UPPER_INCLUSIVE
+import bridge.utils.Constants.UPPER_INCLUSIVE
 import bridge.utils.Constants.UP
 
 /**
@@ -13,6 +13,6 @@ class BridgeMaker(private val bridgeNumberGenerator: BridgeNumberGenerator) {
      * @return 입력받은 길이에 해당하는 다리 모양. 위 칸이면 "U", 아래 칸이면 "D"로 표현해야 한다.
      */
     fun makeBridge(size: Int): List<String> {
-        return List(size) { UP.takeIf { bridgeNumberGenerator.generate() == RANDOM_UPPER_INCLUSIVE } ?: DOWN }
+        return List(size) { UP.takeIf { bridgeNumberGenerator.generate() == UPPER_INCLUSIVE } ?: DOWN }
     }
 }
